@@ -1,5 +1,6 @@
 import { View, Text, Image, Pressable, StyleSheet, Platform } from 'react-native';
-import MealDetails from './MealDetails';
+import MealDetails from '../MealDetails';
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * @param {Meal} item
@@ -8,10 +9,18 @@ import MealDetails from './MealDetails';
  * @constructor
  */
 export default function MealItem({ item, ...props }) {
+  const navigation = useNavigation();
+
+  function selectMealItemHandler() {
+    navigation.navigate('MealDetails', {
+      mealId: item.id,
+    });
+  }
+
   return (
     <View style={styles.mealItem}>
       <Pressable
-        onPress={props.onPress}
+        onPress={selectMealItemHandler}
         android_ripple={{
           color: '#ccc',
         }}
